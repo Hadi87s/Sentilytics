@@ -1,0 +1,22 @@
+.predefined-questions h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .predefined-questions ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .predefined-questions li {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #007bff;
+    transition: color 0.2s;
+  }
+  
+  .predefined-questions li:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,146 @@
+/* Analyze Section */
+
+.analyze-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    width: 100%;
+    background-color: #0f172a;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+/* Card container for the input and results */
+
+.analyze-card {
+    width: 100%;
+    max-width: 800px;
+    background-color: #1e293b;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #f1f5f9;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+
+/* Section title */
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #38bdf8;
+}
+
+
+/* Input field */
+
+.analyze-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.8rem;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    background-color: #0f172a;
+    color: #f1f5f9;
+    font-size: 1rem;
+    text-align: center;
+}
+
+
+/* Button */
+
+.analyze-button {
+    background-color: #38bdf8;
+    color: #ffffff;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.analyze-button:hover {
+    background-color: #0284c7;
+}
+
+
+/* Results Container */
+
+.results-container {
+    background-color: #111827;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #f1f5f9;
+}
+
+
+/* Reviews Box */
+
+.reviews-box {
+    background-color: #1e293b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.review {
+    background-color: #111827;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+.review-sentiment {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    color: #f1f5f9;
+    line-height: 1.5;
+}
+
+
+/* Show More Button */
+
+.show-more-button {
+    background-color: #334155;
+    color: #f1f5f9;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.show-more-button:hover {
+    background-color: #475569;
+}
+
+
+/* Sentiment Distribution Box */
+
+.sentiment-distribution-box {
+    background-color: #1e293b;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    color: #f1f5f9;
+}

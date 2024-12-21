@@ -1,6 +1,9 @@
 import pickle
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from bs4 import BeautifulSoup
 import langdetect
 import time
@@ -45,53 +48,54 @@ def scrape_reviews_and_product_name(url):
 
         # Step 4: Extract product name
         soup = BeautifulSoup(driver.page_source, "html.parser")
-        try:
-            # Attempt multiple selectors to find product title
-            product_name = None
-            possible_selectors = ["#productTitle", "span.a-size-large", "h1 span", "div[data-asin-title]"]
-
-            for selector in possible_selectors:
-                element = soup.select_one(selector)
-                if element:
-                    product_name = element.get_text(strip=True)
-                    break
-
-            if not product_name:
-                print("DEBUG: Product title not found. Printing page source...")
-                print(driver.page_source[:5000])
-                product_name = "Unknown Product"
-
-        except Exception as e:
-            print(f"Error while extracting product name: {e}")
+        possible_selectors = ["#productTitle", "span.a-size-large", "h1 span", "div[data-asin-title]"]
+        for selector in possible_selectors:
+            element = soup.select_one(selector)
+            if element:
+                product_name = element.get_text(strip=True)
+                break
+        if not product_name:
             product_name = "Unknown Product"
+            print("DEBUG: Product title not found.")
 
         # Step 5: Extract reviews
         while True:
             soup = BeautifulSoup(driver.page_source, "html.parser")
-            review_boxes = soup.select("div[data-hook='review']")
+            review_boxes = soup.select("span[data-hook='review-body']")
+
             if not review_boxes:
                 break
 
             for box in review_boxes:
                 try:
-                    review_text = box.select_one("span[data-hook='review-body']").text.strip()
+                    review_span = box.find("span")
+                    review_text = review_span.get_text(strip=True) if review_span else ""
                     if not review_text or len(review_text) < 10:
                         continue
                     if langdetect.detect(review_text) != "en":
                         continue
                     all_reviews.append({"text": review_text})
-                except AttributeError:
+                except Exception as e:
+                    print(f"DEBUG: Error extracting review text: {e}")
                     continue
 
-            # Step 6: Go to next page
+            # Step 6: Go to the next page
             try:
-                next_button = driver.find_element(By.CSS_SELECTOR, "li.a-last a")
+                next_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "li.a-last a"))
+                )
+                if not next_button.is_displayed() or not next_button.is_enabled():
+                    print("DEBUG: 'Next' button is not clickable. Exiting pagination.")
+                    break
                 next_button.click()
                 time.sleep(5)
-            except:
+            except TimeoutException:
+                print("DEBUG: No 'Next' button found. Pagination ended.")
+                break
+            except Exception as e:
+                print(f"DEBUG: Error during pagination: {e}")
                 break
 
     finally:
         driver.quit()
-
     return {"product_name": product_name, "reviews": all_reviews}

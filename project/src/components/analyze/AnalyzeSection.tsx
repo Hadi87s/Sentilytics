@@ -22,6 +22,7 @@ interface SentimentCounts {
 interface Results {
   reviews: Review[];
   sentiment_counts: SentimentCounts;
+  product_name: string; // Add product name to Results interface
 }
 
 export const AnalyzeSection: React.FC = () => {
@@ -73,7 +74,6 @@ export const AnalyzeSection: React.FC = () => {
 
   const generateWordFrequency = (reviews: Review[]) => {
     const wordCount: Record<string, number> = {};
-    const sentimentWords = ["good", "great", "Amazing", "bad", "incredible", "excellent","hate","love"];
     const sentimentPhrases = [
       "good product",
       "bad product",
@@ -147,9 +147,16 @@ export const AnalyzeSection: React.FC = () => {
     >
       <div className="w-full max-w-6xl px-4">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
-          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
             Analyze Amazon Reviews
           </h2>
+
+          {/* Updated Product Name Display */}
+          {results && (
+            <p className="text-xl font-semibold text-center text-gray-700 dark:text-gray-300 mb-6">
+              {results.product_name !== "Unknown Product" ? results.product_name : "Product Name Not Available"}
+            </p>
+          )}
 
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
             <input
@@ -174,106 +181,109 @@ export const AnalyzeSection: React.FC = () => {
             </p>
           )}
 
-{results && (
-  <>
-    {/* Stat Boxes */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-  <div className="bg-teal-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
-    <h3 className="text-lg font-semibold">Total Reviews Analyzed</h3>
-    <p className="text-3xl font-bold mt-2">{results.reviews.length}</p>
-  </div>
+          {results && (
+            <>
+              {/* Stat Boxes */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div className="bg-teal-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
+                  <h3 className="text-lg font-semibold">Total Reviews Analyzed</h3>
+                  <p className="text-3xl font-bold mt-2">{results.reviews.length}</p>
+                </div>
 
-  <div className="bg-green-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
-    <h3 className="text-lg font-semibold">Overall Sentiment</h3>
-    <p className="text-3xl font-bold mt-2">
-      {overallSentiment}% Positive
-    </p>
-  </div>
-</div>
+                <div className="bg-green-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
+                  <h3 className="text-lg font-semibold">Overall Sentiment</h3>
+                  <p className="text-3xl font-bold mt-2">{overallSentiment}% Positive</p>
+                </div>
+              </div>
 
-    {/* Existing Charts */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
-      <div className="flex justify-center">
-        <div className="w-3/4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">
-            Sentiment Distribution
-          </h3>
-          <Pie
-            data={{
-              labels: ["Happy", "Neutral", "Unhappy"],
-              datasets: [
-                {
-                  label: "Sentiment Distribution",
-                  data: [
-                    results.sentiment_counts.Happy,
-                    results.sentiment_counts.Neutral,
-                    results.sentiment_counts.Unhappy,
-                  ],
-                  backgroundColor: ["#4caf50", "#ff9800", "#f44336"],
-                },
-              ],
-            }}
-            options={{
-              maintainAspectRatio: true,
-              responsive: true,
-              plugins: {
-                datalabels: {
-                  color: "white",
-                  font: {
-                    size: 14,
-                  },
-                  formatter: (value, context) => {
-                    const dataArray = context.dataset.data as number[];
-                    const total = dataArray.reduce((acc, curr) => acc + curr, 0);
-                    const percentage = ((value / total) * 100).toFixed(1);
-                    return `${percentage}%`;
-                  },
-                },
-              },
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex justify-center h-full">
-  <div className="w-3/4 h-[350px]">
-    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">
-      Word Frequency
-    </h3>
-    <Bar
-      data={barData}
-      options={{
-        maintainAspectRatio: false, // Allow flexible height
-        responsive: true,
-        plugins: {
-          datalabels: {
-            color: "gray",
-            anchor: "end",
-            align: "top",
-            font: {
-              size: 14,
-            },
-            formatter: (value) => value,
-          },
-        },
-      }}
-      height={350} // Explicit height
-    />
-  </div>
-</div>
-    </div>
-  </>
-)}
+              {/* Existing Charts */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
+                <div className="flex justify-center">
+                  <div className="w-3/4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">
+                      Sentiment Distribution
+                    </h3>
+                    <Pie
+                      data={{
+                        labels: ["Happy", "Neutral", "Unhappy"],
+                        datasets: [
+                          {
+                            label: "Sentiment Distribution",
+                            data: [
+                              results.sentiment_counts.Happy,
+                              results.sentiment_counts.Neutral,
+                              results.sentiment_counts.Unhappy,
+                            ],
+                            backgroundColor: ["#4caf50", "#ff9800", "#f44336"],
+                          },
+                        ],
+                      }}
+                      options={{
+                        maintainAspectRatio: true,
+                        responsive: true,
+                        plugins: {
+                          datalabels: {
+                            color: "white",
+                            font: {
+                              size: 14,
+                            },
+                            formatter: (value, context) => {
+                              const dataArray = context.dataset.data as number[];
+                              const total = dataArray.reduce(
+                                (acc, curr) => acc + curr,
+                                0
+                              );
+                              const percentage = ((value / total) * 100).toFixed(
+                                1
+                              );
+                              return `${percentage}%`;
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center h-full">
+                  <div className="w-3/4 h-[350px]">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 text-center">
+                      Word Frequency
+                    </h3>
+                    <Bar
+                      data={barData}
+                      options={{
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        plugins: {
+                          datalabels: {
+                            color: "gray",
+                            anchor: "end",
+                            align: "top",
+                            font: {
+                              size: 14,
+                            },
+                            formatter: (value) => value,
+                          },
+                        },
+                      }}
+                      height={350}
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
 
-{results && (
-  <div className="flex justify-center mt-6">
-    <button
-      onClick={() => navigate("/reviews", { state: { results } })}
-      className="px-6 py-2 bg-teal-600 text-white rounded-md shadow hover:bg-teal-700"
-    >
-      View Reviews
-    </button>
-  </div>
-)}
+          {results && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={() => navigate("/reviews", { state: { results } })}
+                className="px-6 py-2 bg-teal-600 text-white rounded-md shadow hover:bg-teal-700"
+              >
+                View Reviews
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

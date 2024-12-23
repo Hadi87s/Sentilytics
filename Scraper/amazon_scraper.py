@@ -46,38 +46,93 @@ def scrape_reviews_and_product_name(url):
         driver.get(url)
         time.sleep(5)
 
-        # Step 4: Extract product name
+      # Step 4: Extract product name
+
         soup = BeautifulSoup(driver.page_source, "html.parser")
-        possible_selectors = ["#productTitle", "span.a-size-large", "h1 span", "div[data-asin-title]"]
+
+        possible_selectors = [
+
+            "#productTitle",  # Primary selector
+
+            "span.a-size-large.product-title-word-break",  # Secondary fallback
+
+            "h1 span",  # Header title fallback
+
+            "div[data-asin-title]"  # Fallback for asin title
+
+        ]
+
+
+
         for selector in possible_selectors:
+
             element = soup.select_one(selector)
+
             if element:
+
                 product_name = element.get_text(strip=True)
+
                 break
+
+
+
+        # Last resort: Try fetching from the <title> tag
+
         if not product_name:
-            product_name = "Unknown Product"
-            print("DEBUG: Product title not found.")
+
+            title_element = soup.find("title")
+
+            if title_element:
+
+                product_name = title_element.get_text(strip=True).split("|")[0].strip()
+
+            else:
+
+                product_name = "Unknown Product"
+
+            print("DEBUG: Product title not found using selectors.")
+
+
 
         # Step 5: Extract reviews
+
         while True:
+
             soup = BeautifulSoup(driver.page_source, "html.parser")
+
             review_boxes = soup.select("span[data-hook='review-body']")
 
+
+
             if not review_boxes:
+
                 break
 
+
+
             for box in review_boxes:
+
                 try:
-                    review_span = box.find("span")
-                    review_text = review_span.get_text(strip=True) if review_span else ""
+
+                    review_text = box.get_text(strip=True)
+
                     if not review_text or len(review_text) < 10:
+
                         continue
+
                     if langdetect.detect(review_text) != "en":
+
                         continue
+
                     all_reviews.append({"text": review_text})
+
                 except Exception as e:
+
                     print(f"DEBUG: Error extracting review text: {e}")
+
                     continue
+
+
 
             # Step 6: Go to the next page
             try:

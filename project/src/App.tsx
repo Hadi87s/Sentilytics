@@ -41,7 +41,7 @@ export default function App() {
             {/* New Route for the Reviews Page */}
             <Route path="/reviews" element={<ReviewsPage />} />
             <Route path="/analyze" element={<AnalyzeSection />} />
-            <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/reviewsPage" element={<ReviewPage />} />
             <Route path="/privacy" element={<PrivacyNotice />} />
           </Routes>
         </Suspense>

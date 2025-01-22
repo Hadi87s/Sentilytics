@@ -53,7 +53,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/reviews"
+                  to="/reviewsPage"
                   className="text-gray-600 dark:text-gray-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-300"
                 >
                   Reviews

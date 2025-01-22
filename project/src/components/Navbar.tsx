@@ -44,13 +44,14 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Updated Logo */}
           <button
-            onClick={() =>
+            onClick={() => {
               scrollTo({
                 top: 0,
                 left: 0,
                 behavior: "smooth",
-              })
-            } // Navigate to the homepage
+              });
+              navigate("/");
+            }} // Navigate to the homepage
             className="flex items-center space-x-3"
           >
             <span

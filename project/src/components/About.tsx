@@ -8,8 +8,9 @@ const teamMembers = [
     major: "",
     github: "https://github.com/ali94an",
     email: "alibassab25@gmail.com",
+    instagram: "https://www.instagram.com/ali94an",
     image:
-      "https://media.licdn.com/dms/image/v2/D5603AQGJ5WX2oBXGrQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718234849301?e=1738195200&v=beta&t=_FKPi9bAcZKeERpbxzAAWL56k-rbZl-k4KHxLXQszyw",
+      "https://media.licdn.com/dms/image/v2/D5603AQEGhhCRjWMu6g/profile-displayphoto-shrink_400_400/B56ZR5yjBbHsAo-/0/1737210082044?e=1743033600&v=beta&t=EOyDGc9yGrL6KfW123ctWEplzkWC1isbKAdwgeUgSIo",
     bio: "Ali specializes in backend development and data integration. He works on scraping logic, building APIs, and optimizing systems for efficiency, ensuring seamless integration of the sentiment analysis model into the platform.",
   },
   {
@@ -17,6 +18,7 @@ const teamMembers = [
     major: "",
     github: "https://github.com",
     email: "amrqam12@gmail.com",
+    instagram: "https://www.instagram.com/amrrqamhieh/",
     image:
       "https://media.licdn.com/dms/image/v2/D4E03AQG8cnKZ_XFupQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726342547338?e=1738195200&v=beta&t=BDddYIF21NJ5Ka6L1wsh0iz1D4XQWyBqiMZYnS8UZdY",
     bio: "Amr is the front-end developer who transforms designs into dynamic and responsive user interfaces. He ensures a seamless user experience by implementing interactive components and connecting them to the backend.",
@@ -26,6 +28,7 @@ const teamMembers = [
     major: "",
     github: "https://github.com/MuawiyaNasser",
     email: "muawiyanasser66@gmail.com",
+    instagram: "https://www.instagram.com/muawiya.a.a.a/",
     image:
       "https://media.licdn.com/dms/image/v2/D4D03AQETv5yiA6ySJg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719750364772?e=1738800000&v=beta&t=4T2qsFwHvG9-nGwaU67BKHHJiyvwT42LP9AqEQvJiKw",
     bio: "Muawiya leads the data science efforts, optimizing sentiment analysis models for accuracy and multilingual support. He provides key insights to enhance data visualizations and backend integration.",
@@ -35,6 +38,7 @@ const teamMembers = [
     major: "",
     github: "https://github.com",
     email: "ali.odeh399@gmail.com",
+    instagram: "https://www.instagram.com/ali.odeh00/",
     image:
       "https://media.licdn.com/dms/image/v2/D4D03AQH82cqlg3rVJQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1675361511096?e=1738195200&v=beta&t=Ui_bW7Z0nCIlNctNoRk5pAxD560ZHnIRRyJx7GKNQ_Q",
     bio: "Ali provides front-end support, assisting with implementing the website's user interface and ensuring responsiveness. He collaborates closely with Amr to refine the visual and functional aspects of the platform.",

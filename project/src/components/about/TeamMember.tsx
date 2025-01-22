@@ -1,67 +1,78 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Mail } from "lucide-react";
+import { Github, Mail, Instagram } from "lucide-react"; // Import Instagram icon
 
 interface TeamMemberProps {
   name: string;
-  major: string;
-  github: string;
-  email: string;
   image: string;
   bio: string;
+  github: string;
+  email: string;
+  instagram: string; // Add Instagram prop
 }
 
 export function TeamMember({
   name,
-  major,
-  github,
-  email,
   image,
   bio,
+  github,
+  email,
+  instagram, // Destructure Instagram
 }: TeamMemberProps) {
   return (
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
-  className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between min-h-[400px]"
->
-  <img
-    src={image}
-    alt={name}
-    className="w-40 h-40 rounded-full mx-auto mb-4 object-cover"
-  />
-  <div className="flex flex-col items-center justify-center">
-    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-      {name}
-    </h3>
-    <span className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-teal-500 text-white text-sm font-bold border border-teal-600">
-      {major}
-    </span>
-  </div>
-  <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm leading-relaxed">
-    {bio}
-  </p>
-  <div className="flex flex-col space-y-2 mt-auto">
-    <a
-      href={github}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 70, damping: 10, duration: 0.3 }}
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-100"
     >
-      <Github className="w-5 h-5" />
-      <span>View on GitHub</span>
-    </a>
-    <a
-      href={`mailto:${email}`}
-      className="inline-flex items-center justify-center space-x-2 px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600 transition-colors duration-200"
-    >
-      <Mail className="w-5 h-5" />
-      <span>Contact</span>
-    </a>
-  </div>
-</motion.div>
+      {/* Profile Image */}
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-48 object-cover object-center"
+      />
 
+      {/* Content */}
+      <div className="p-6">
+        {/* Name */}
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          {name}
+        </h3>
+
+        {/* Bio */}
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{bio}</p>
+
+        {/* Social Links */}
+        <div className="flex space-x-4">
+          {/* GitHub */}
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-300"
+          >
+            <Github className="w-6 h-6" />
+          </a>
+
+          {/* Email */}
+          <a
+            href={`mailto:${email}`}
+            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-300"
+          >
+            <Mail className="w-6 h-6" />
+          </a>
+
+          {/* Instagram */}
+          <a
+            href={instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-400 transition-colors duration-300"
+          >
+            <Instagram className="w-6 h-6" />
+          </a>
+        </div>
+      </div>
+    </motion.div>
   );
 }

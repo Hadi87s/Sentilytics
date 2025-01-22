@@ -26,7 +26,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={ 
+              element={
                 <>
                   <Hero />
                   <About />

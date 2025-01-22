@@ -5,7 +5,8 @@ import "chart.js/auto";
 import { removeStopwords } from "stopword";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Chart as ChartJS, ArcElement } from "chart.js";
-
+import { motion } from "framer-motion";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 ChartJS.register(ChartDataLabels, ArcElement);
 
 interface Review {
@@ -22,7 +23,7 @@ interface SentimentCounts {
 interface Results {
   reviews: Review[];
   sentiment_counts: SentimentCounts;
-  product_name: string; // Add product name to Results interface
+  product_name: string;
 }
 
 export const AnalyzeSection: React.FC = () => {
@@ -30,7 +31,9 @@ export const AnalyzeSection: React.FC = () => {
   const [results, setResults] = useState<Results | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [wordFrequency, setWordFrequency] = useState<Record<string, number>>({});
+  const [wordFrequency, setWordFrequency] = useState<Record<string, number>>(
+    {}
+  );
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -85,12 +88,60 @@ export const AnalyzeSection: React.FC = () => {
       "not bad",
     ];
     const customStopwords = [
-      "and", "or", "but", "because", "so", "yet", "for", "on", "in", "with", "at",
-      "from", "into", "during", "until", "against", "among", "throughout",
-      "despite", "towards", "upon", "of", "to", "a", "the", "an", "is", "are",
-      "was", "were", "be", "been", "being", "have", "has", "had", "having", "do",
-      "does", "did", "doing", "will", "would", "shall", "should", "can", "could",
-      "may", "might", "must", "this", "that", "these", "those",
+      "and",
+      "or",
+      "but",
+      "because",
+      "so",
+      "yet",
+      "for",
+      "on",
+      "in",
+      "with",
+      "at",
+      "from",
+      "into",
+      "during",
+      "until",
+      "against",
+      "among",
+      "throughout",
+      "despite",
+      "towards",
+      "upon",
+      "of",
+      "to",
+      "a",
+      "the",
+      "an",
+      "is",
+      "are",
+      "was",
+      "were",
+      "be",
+      "been",
+      "being",
+      "have",
+      "has",
+      "had",
+      "having",
+      "do",
+      "does",
+      "did",
+      "doing",
+      "will",
+      "would",
+      "shall",
+      "should",
+      "can",
+      "could",
+      "may",
+      "might",
+      "must",
+      "this",
+      "that",
+      "these",
+      "those",
     ];
 
     reviews.forEach((review) => {
@@ -100,7 +151,8 @@ export const AnalyzeSection: React.FC = () => {
       );
 
       words.forEach((word, index) => {
-        const phrase = index < words.length - 1 ? `${word} ${words[index + 1]}` : null;
+        const phrase =
+          index < words.length - 1 ? `${word} ${words[index + 1]}` : null;
 
         if (sentimentPhrases.includes(word)) {
           wordCount[word] = (wordCount[word] || 0) + 1;
@@ -146,15 +198,106 @@ export const AnalyzeSection: React.FC = () => {
       className="min-h-screen w-full flex flex-col items-center bg-gradient-to-br from-teal-50 to-white dark:from-gray-900 dark:to-gray-800 py-8"
     >
       <div className="w-full max-w-6xl px-4">
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-xl p-6 border border-gray-200 dark:border-gray-700">
+        {/* Cards Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Card 1: Scraping Techniques */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 flex flex-col"
+          >
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Scraping Techniques
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Our system uses advanced web scraping techniques to extract
+                product reviews from Amazon. It navigates through product pages,
+                collects review data, and prepares it for sentiment analysis.
+              </p>
+            </div>
+            <div className="mt-4 relative">
+              <DotLottieReact
+                src="https://lottie.host/16d57cfd-3728-4207-b637-151a7d86a095/8haTserQnr.lottie"
+                loop
+                autoplay
+              />
+              <div className="absolute inset-0"></div>
+            </div>
+          </motion.div>
+
+          {/* Card 2: Sentiment Analysis */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 flex flex-col"
+          >
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Sentiment Analysis
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                After scraping, the reviews are analyzed using AI to determine
+                sentiment. The system classifies reviews as Happy, Neutral, or
+                Unhappy, providing insights into customer feedback.
+              </p>
+            </div>
+            <div className="mt-4 relative">
+              <DotLottieReact
+                src="https://lottie.host/14bb3fd7-3a8a-4f6b-9a5c-4b745e35e300/XtnzdbtkYT.lottie"
+                loop
+                autoplay
+              />
+              <div className="absolute inset-0"></div>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Review Visualization */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 flex flex-col"
+          >
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Review Visualization
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                The analyzed reviews are displayed statistically using charts
+                and graphs. You can view sentiment distribution and word
+                frequency to understand customer opinions better.
+              </p>
+            </div>
+            <div className="mt-4 relative">
+              <DotLottieReact
+                src="https://lottie.host/08a4ae52-9923-4431-af94-58ca2cd3d1fb/vMhHFzNZTm.lottie"
+                loop
+                autoplay
+              />
+              <div className="absolute inset-0"></div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Analyze Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-xl shadow-xl p-6 border border-gray-200 dark:border-gray-700"
+        >
           <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
             Analyze Amazon Reviews
           </h2>
 
-          {/* Updated Product Name Display */}
           {results && (
             <p className="text-xl font-semibold text-center text-gray-700 dark:text-gray-300 mb-6">
-              {results.product_name !== "Unknown Product" ? results.product_name : "Product Name Not Available"}
+              {results.product_name !== "Unknown Product"
+                ? results.product_name
+                : "Product Name Not Available"}
             </p>
           )}
 
@@ -183,20 +326,24 @@ export const AnalyzeSection: React.FC = () => {
 
           {results && (
             <>
-              {/* Stat Boxes */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="bg-teal-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
-                  <h3 className="text-lg font-semibold">Total Reviews Analyzed</h3>
-                  <p className="text-3xl font-bold mt-2">{results.reviews.length}</p>
+                  <h3 className="text-lg font-semibold">
+                    Total Reviews Analyzed
+                  </h3>
+                  <p className="text-3xl font-bold mt-2">
+                    {results.reviews.length}
+                  </p>
                 </div>
 
                 <div className="bg-green-500 text-white rounded-md shadow-md p-4 w-full max-w-[280px] mx-auto text-center">
                   <h3 className="text-lg font-semibold">Overall Sentiment</h3>
-                  <p className="text-3xl font-bold mt-2">{overallSentiment}% Positive</p>
+                  <p className="text-3xl font-bold mt-2">
+                    {overallSentiment}% Positive
+                  </p>
                 </div>
               </div>
 
-              {/* Existing Charts */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center">
                 <div className="flex justify-center">
                   <div className="w-3/4">
@@ -228,14 +375,16 @@ export const AnalyzeSection: React.FC = () => {
                               size: 14,
                             },
                             formatter: (value, context) => {
-                              const dataArray = context.dataset.data as number[];
+                              const dataArray = context.dataset
+                                .data as number[];
                               const total = dataArray.reduce(
                                 (acc, curr) => acc + curr,
                                 0
                               );
-                              const percentage = ((value / total) * 100).toFixed(
-                                1
-                              );
+                              const percentage = (
+                                (value / total) *
+                                100
+                              ).toFixed(1);
                               return `${percentage}%`;
                             },
                           },
@@ -284,7 +433,7 @@ export const AnalyzeSection: React.FC = () => {
               </button>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
-
+import "./nav.css";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,7 +44,13 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Updated Logo */}
           <button
-            onClick={() => navigate("/")} // Navigate to the homepage
+            onClick={() =>
+              scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              })
+            } // Navigate to the homepage
             className="flex items-center space-x-3"
           >
             <span
@@ -55,7 +61,7 @@ export function Navbar() {
             </span>
           </button>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 font-bold">
             <button
               onClick={() => scrollToSection("about")}
               className="text-gray-700 dark:text-gray-200 hover:text-teal-500 dark:hover:text-teal-400 transition-colors duration-300"
@@ -74,7 +80,8 @@ export function Navbar() {
             >
               Contact
             </button>
-
+          </div>
+          <div className="burgerTheme">
             <button
               id="themeToggle"
               onClick={toggleTheme}
@@ -86,61 +93,48 @@ export function Navbar() {
                 <Moon className="w-5 h-5 lightMode" />
               )}
             </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2"
+            >
+              {isDark ? (
+                isMenuOpen ? (
+                  <X className="w-6 h-6 darkMode" />
+                ) : (
+                  <Menu className="w-6 h-6 darkMode" />
+                )
+              ) : isMenuOpen ? (
+                <X className="w-6 h-6 lightMode" />
+              ) : (
+                <Menu className="w-6 h-6 lightMode" />
+              )}
+            </button>
           </div>
-
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-black/60 backdrop-blur-sm z-50">
+        <div className="md:hidden fixed inset-0 top-16 bg-black/50 backdrop-blur-sm z-50">
           <div className="flex flex-col h-full">
-            <div className="px-4 py-4 space-y-4 backdrop-blur-sm bg-black/60">
+            <div className="px-4 py-6 space-y-4 backdrop-blur-sm bg-gradient-to-br from-black/70 to-gray-900/80 border-t border-gray-800">
               <button
                 onClick={() => scrollToSection("about")}
-                className="block w-full text-left text-lg text-gray-200 hover:text-teal-500 transition-colors duration-300"
+                className="block w-full text-left text-lg text-gray-200 hover:text-white hover:bg-teal-500/10 px-4 py-3 rounded-lg transition-all duration-300 transform hover:translate-x-2 hover:scale-105"
               >
-                About
+                <span className="flex items-center">About</span>
               </button>
               <button
                 onClick={() => scrollToSection("analyze")}
-                className="block w-full text-left text-lg text-gray-200 hover:text-teal-500 transition-colors duration-300"
+                className="block w-full text-left text-lg text-gray-200 hover:text-white hover:bg-teal-500/10 px-4 py-3 rounded-lg transition-all duration-300 transform hover:translate-x-2 hover:scale-105"
               >
-                Analyze
+                <span className="flex items-center">Analyze</span>
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="block w-full text-left text-lg text-gray-200 hover:text-teal-500 transition-colors duration-300"
+                className="block w-full text-left text-lg text-gray-200 hover:text-white hover:bg-teal-500/10 px-4 py-3 rounded-lg transition-all duration-300 transform hover:translate-x-2 hover:scale-105"
               >
-                Contact
-              </button>
-            </div>
-            <div className="mt-auto p-4 border-t border-gray-700 backdrop-blur-sm bg-black/60">
-              <button
-                onClick={toggleTheme}
-                className="w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-md text-gray-200 hover:text-teal-500 transition-colors duration-300"
-              >
-                {isDark ? (
-                  <>
-                    <Sun className="w-5 h-5" />
-                    <span>Light Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-5 h-5" />
-                    <span>Dark Mode</span>
-                  </>
-                )}
+                <span className="flex items-center">Contact</span>
               </button>
             </div>
           </div>

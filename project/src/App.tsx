@@ -8,6 +8,8 @@ import { ContactSection } from "./components/contact/ContactSection";
 import { Footer } from "./components/Footer";
 import { ChatBot } from "./components/chat/ChatBot";
 import ReviewsPage from "./components/analyze/ReviewsPage";
+import { ReviewPage } from "./components/ReviewPage";
+import { PrivacyNotice } from "./components/PrivacyNotice";
 
 function LoadingSpinner() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
             {/* New Route for the Reviews Page */}
             <Route path="/reviews" element={<ReviewsPage />} />
             <Route path="/analyze" element={<AnalyzeSection />} />
+            <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/privacy" element={<PrivacyNotice />} />
           </Routes>
         </Suspense>
         {/* Chatbot Accessible Throughout the App */}
